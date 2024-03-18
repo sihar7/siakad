@@ -19,8 +19,8 @@
                 <div class="float-right" id="formStatus">
                     <div class="form-group">
                         <label for="janis_kalamin">Status</label>
-                        <select class="form-control custom-select  @error('status') is-invalid @enderror"
-                            id="status" name="status">
+                        <select class="form-control custom-select  @error('status') is-invalid @enderror" id="status"
+                            name="status">
                             <option value="" selected="" disabled="">Pilih Status</option>
                             <option value="calon" {{ old('status') == 'calon' ? 'selected' : '' }}>
                                 Calon
@@ -33,6 +33,8 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <button class="btn btn-primary update_all">Perbarui Semua</button>
                 </div>
             </div>
             <div class="card-body">
@@ -122,6 +124,8 @@
             })
         });
 
+        $('.update_all').hide();
+
         $('#master').on('click', function (e) {
             if ($(this).is(':checked', true)) {
                 $(".sub_chk").prop('checked', true);
@@ -139,7 +143,8 @@
 
 
             if (allVals.length <= 0) {
-                alert("Please select row.");
+                alert("Silakan pilih baris.");
+                $('.update_all').show();
             } else {
 
                 var check = confirm("Apakah kamu yakin ingin memperbaharui status?");
@@ -151,7 +156,9 @@
                     $.ajax({
                         type: 'POST',
                         url: `{{ url('updateAll') }}/${join_selected_values}`,
-                        data: {'status': status},
+                        data: {
+                            'status': status
+                        },
                         success: function (data) {
                             if (data['success']) {
                                 $(".sub_chk:checked").each(function () {
@@ -161,7 +168,7 @@
                             } else if (data['error']) {
                                 alert(data['error']);
                             } else {
-                                alert('Whoops Something went wrong!!');
+                                alert('Ups ada yang bermasalah!!');
                             }
                         },
                         error: function (data) {
@@ -176,43 +183,54 @@
                 }
             }
         });
+        $('.update_all').on('click', function () {
 
-        $('[data-toggle=confirmation]').confirmation({
-            rootSelector: '[data-toggle=confirmation]',
-            onConfirm: function (event, element) {
-                element.trigger('confirm');
-            }
-        });
-
-
-        $(document).on('confirm', function (e) {
-            var ele = e.target;
-            e.preventDefault();
-
-
-            $.ajax({
-                url: ele.href,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (data) {
-                    if (data['success']) {
-                        $("#" + data['tr']).slideUp("slow");
-                        alert(data['success']);
-                    } else if (data['error']) {
-                        alert(data['error']);
-                    } else {
-                        alert('Whoops Something went wrong!!');
-                    }
-                },
-                error: function (data) {
-                    alert(data.responseText);
-                }
+            var allVals = [];
+            $(".sub_chk:checked").each(function () {
+                allVals.push($(this).attr('data-id'));
             });
 
 
-            return false;
+            if (allVals.length <= 0) {
+                alert("Silakan pilih baris.");
+                $('update_all').show();
+            } else {
+
+                var check = confirm("Apakah kamu yakin ingin memperbaharui status?");
+                if (check == true) {
+
+                    var join_selected_values = allVals.join(",");
+                    let status = $("#status").val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `{{ url('updateAll') }}/${join_selected_values}`,
+                        data: {
+                            'status': status
+                        },
+                        success: function (data) {
+                            if (data['success']) {
+                                $(".sub_chk:checked").each(function () {
+                                    $(this).parents("tr").remove();
+                                });
+                                alert(data['success']);
+                            } else if (data['error']) {
+                                alert(data['error']);
+                            } else {
+                                alert('Ups ada yang bermasalah!!');
+                            }
+                        },
+                        error: function (data) {
+                            alert(data.responseText);
+                        }
+                    });
+
+
+                    $.each(allVals, function (index, value) {
+                        $('table tr').filter("[data-row-id='" + value + "']").remove();
+                    });
+                }
+            }
         });
     });
 
