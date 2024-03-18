@@ -135,7 +135,8 @@ Route::group(['middleware' => ['auth', 'checkRole:guru,admin,petugas']], functio
 
     //end
 
-
+    //Checkbox
+    Route::post('updateAll/{id}', 'StudentsController@updateAll');
     //ajax
     // get data student untuk datatable serverside
     Route::get('getdatastudents', [

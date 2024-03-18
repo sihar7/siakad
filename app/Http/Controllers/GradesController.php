@@ -16,6 +16,8 @@ class GradesController extends Controller
      */
     public function index(Request $request)
     {
+
+        dd($request->all());
         $classes = \App\ClassRoom::all();
         $semesters = \App\Semester::all();
 

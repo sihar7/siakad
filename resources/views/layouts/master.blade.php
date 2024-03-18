@@ -2,6 +2,8 @@
 <html>
 
 <head>
+
+   <meta name="csrf-token" content="{{ csrf_token() }}">
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <title>@yield('title')</title>
@@ -107,10 +109,10 @@
    <script src="{{ asset('assets/js/script.js') }}"></script>
    <script>
       @if (Session::has('status'))
-         toastr.success("{{ session('status') }}", "Berhasil")   
+         toastr.success("{{ session('status') }}", "Berhasil")
       @endif
       @if (Session::has('error'))
-         toastr.error("{{ session('error') }}", "Gagal")   
+         toastr.error("{{ session('error') }}", "Gagal")
       @endif
 
       $('select').select2({
@@ -142,7 +144,7 @@
    </script>
    <script>
       $(document).ready(function() {
-        
+
         $('.load').on('click', function() {
           var $this = $(this);
           var loadingText = '<span class="spinner-border spinner-border-sm"></span> Loading..';
@@ -153,11 +155,11 @@
           setTimeout(function() {
             $this.html($this.data('original-text'));
           }, Date.now()-timerStart);
-            
+
          //  if( !$('#username').prop('validity').valid ){
          //    $this.html($this.data('original-text'));
          //  }
-          
+
         });
       })
    </script>

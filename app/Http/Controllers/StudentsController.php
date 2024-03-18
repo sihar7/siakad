@@ -250,8 +250,8 @@ class StudentsController extends Controller
             // })
             ->addColumn('aksi', function ($s) {
                 return '<a href="/students/' . $s->id . '" class="btn btn-info btn-sm">detail</a>
-                <a href="/students/' . $s->id . '/edit" class="btn btn-warning btn-sm">edit</a> 
-                <form action="/students/' . $s->id . '" method="post" class="d-inline delete">   
+                <a href="/students/' . $s->id . '/edit" class="btn btn-warning btn-sm">edit</a>
+                <form action="/students/' . $s->id . '" method="post" class="d-inline delete">
                     <input type="hidden" name="_token" value="' . csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger delete btn-sm">hapus</button>
@@ -270,15 +270,18 @@ class StudentsController extends Controller
             //     return $s->classRoom->nama;
             // })
             ->addColumn('aksi', function ($s) {
-                return '<a href="/calon_siswa/' . $s->id . '" class="btn btn-info btn-sm">detail</a>
-                <a href="/calon_siswa/' . $s->id . '/edit" class="btn btn-warning btn-sm">edit</a> 
-                <form action="/students/' . $s->id . '" method="post" class="d-inline delete">   
+                return '<a href="/calon_siswa/' . $s->id . '" class="btn btn-info btn-sm">Detail</a>
+                <a href="/calon_siswa/' . $s->id . '/edit" class="btn btn-warning btn-sm">Edit</a>
+                <form action="/students/' . $s->id . '" method="post" class="d-inline delete">
                     <input type="hidden" name="_token" value="' . csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger delete btn-sm">hapus</button>
+                    <button type="submit" class="btn btn-danger delete btn-sm">Hapus</button>
                 </form>';
             })
-            ->rawColumns(['aksi', 'kelas'])
+            ->addColumn('checkbox', function ($s) {
+                return '<input type="checkbox" class="sub_chk" id="sub_chk2" data-id="'.$s->id.'">';
+            })
+            ->rawColumns(['aksi', 'kelas', 'checkbox'])
             ->tojson();
     }
 
@@ -492,4 +495,15 @@ class StudentsController extends Controller
     //     $grades = \App\Grade::where('class_student_id', '=', $request->kelas)->where('semester_id', '=', $request->semester)->get();
     //     return view('user.siswa.nilai', compact('classes', 'semesters', 'grades'));
     // }
+
+    function updateAll(Request $request, $id)
+    {
+        if(!empty($request->status))
+        {
+            DB::table('students')
+            ->whereIn('id', explode(",",$id))
+            ->update(["status" => $request->status]);
+            return response()->json(['success'=>"Status Update successfully."]);
+        }
+    }
 }
