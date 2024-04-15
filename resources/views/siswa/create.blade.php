@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Input Data Siswa</h3>
@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="nis">NIS</label>
                             <input type="text" name="nis" class="form-control @error('nis') is-invalid @enderror"
-                                id="nis" placeholder="Masukkan nis" value="{{ $nisTerakhir + 1 }}" readonly>
+                                id="nis" placeholder="Masukkan nis" value="{{ $nisTerakhirRegister }}" readonly>
                             @error('nis')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

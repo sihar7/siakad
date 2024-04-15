@@ -36,9 +36,12 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        $nisTerakhir = Student::max('nis');
+        $nisTerakhir = Student::max('nis') + 1;
+
+        $nisTerakhirRegister = "REG" . $nisTerakhir;
+        //substr($nisTerakhirRegister, 3)
         $classes = \App\ClassRoom::all();
-        return view('siswa.create', compact('nisTerakhir', 'classes'));
+        return view('siswa.create', compact('nisTerakhir', 'classes', 'nisTerakhirRegister'));
     }
 
     /**
@@ -500,9 +503,17 @@ class StudentsController extends Controller
     {
         if(!empty($request->status))
         {
-            DB::table('students')
-            ->whereIn('id', explode(",",$id))
-            ->update(["status" => $request->status]);
+            if($request->status = 'siswa')
+            {
+               $getDataSiswa =  DB::table('students')
+                ->whereIn('id', explode(",", $id))->get();
+
+                foreach ($getDataSiswa as $key => $value) {
+                    DB::table('students')
+                    ->whereIn('id', explode(",",$id))
+                    ->update(["nis" => substr($value->nis, 3), "status" => $request->status]);
+                }
+            }
             return response()->json(['success'=>"Status Update successfully."]);
         }
     }

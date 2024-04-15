@@ -135,7 +135,15 @@
         });
 
         $('#status').on('change', function () {
+            status();
+        });
 
+        $('.update_all').on('click', function () {
+            status();
+        });
+
+        function status ()
+        {
             var allVals = [];
             $(".sub_chk:checked").each(function () {
                 allVals.push($(this).attr('data-id'));
@@ -182,56 +190,7 @@
                     });
                 }
             }
-        });
-        $('.update_all').on('click', function () {
-
-            var allVals = [];
-            $(".sub_chk:checked").each(function () {
-                allVals.push($(this).attr('data-id'));
-            });
-
-
-            if (allVals.length <= 0) {
-                alert("Silakan pilih baris.");
-                $('update_all').show();
-            } else {
-
-                var check = confirm("Apakah kamu yakin ingin memperbaharui status?");
-                if (check == true) {
-
-                    var join_selected_values = allVals.join(",");
-                    let status = $("#status").val();
-
-                    $.ajax({
-                        type: 'POST',
-                        url: `{{ url('updateAll') }}/${join_selected_values}`,
-                        data: {
-                            'status': status
-                        },
-                        success: function (data) {
-                            if (data['success']) {
-                                $(".sub_chk:checked").each(function () {
-                                    $(this).parents("tr").remove();
-                                });
-                                alert(data['success']);
-                            } else if (data['error']) {
-                                alert(data['error']);
-                            } else {
-                                alert('Ups ada yang bermasalah!!');
-                            }
-                        },
-                        error: function (data) {
-                            alert(data.responseText);
-                        }
-                    });
-
-
-                    $.each(allVals, function (index, value) {
-                        $('table tr').filter("[data-row-id='" + value + "']").remove();
-                    });
-                }
-            }
-        });
+        }
     });
 
 </script>
