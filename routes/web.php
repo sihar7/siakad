@@ -68,6 +68,16 @@ Route::group(['middleware' => ['auth', 'checkRole:guru,admin,petugas']], functio
     Route::put('subjects/{subject}', 'SubjectsController@update');
     Route::delete('subjects/{subject}', 'SubjectsController@destroy');
 
+    //ekstra kurikuler
+    Route::get('/extracurriculum', 'ExtraCurriculumController@index');
+    Route::get('extracurriculum/create', 'ExtraCurriculumController@create');
+    Route::post('extracurriculum', 'ExtraCurriculumController@store');
+    Route::get('extracurriculum/{extracurriculum}/edit', 'ExtraCurriculumController@edit');
+    Route::put('extracurriculum/{extracurriculum}', 'ExtraCurriculumController@update');
+    Route::delete('extracurriculum/{extracurriculum}', 'ExtraCurriculumController@destroy');
+
+
+
     Route::get('/semesters', 'SemestersController@index');
     Route::get('semesters/create', 'SemestersController@create');
     Route::post('semesters', 'SemestersController@store');
@@ -182,6 +192,11 @@ Route::group(['middleware' => ['auth', 'checkRole:guru,admin,petugas']], functio
     Route::get('getdatascheduleclass', [
         'uses' => 'SchedulesController@getdataclass',
         'as' => 'ajax.get.data.scheduleclass',
+    ]);
+
+    Route::get('getdataextracurriculum', [
+        'uses' => 'ExtraCurriculumController@getdataextracurriculum',
+        'as' => 'ajax.get.data.extracurriculum',
     ]);
 
     Route::get('/getdataschedules', 'SchedulesController@getCustomFilterDataSchedule');

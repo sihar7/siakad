@@ -120,21 +120,17 @@
                                     <center>Kegiatan
                                 </td>
                             </tr>
-                            <tr style="max-width: 100%">
-                                <td style="width:5%">1</td>
-                                <td colspan="2"> Praja Muda Karana </td>
-                                <td colspan="4"> </td>
-                            </tr>
-                            <tr style="max-width: 100%">
-                                <td style="width:5%">2</td>
-                                <td colspan="2"> </td>
-                                <td colspan="4"> </td>
-                            </tr>
-                            <tr style="max-width: 100%">
-                                <td style="width:5%">3</td>
-                                <td colspan="2"> </td>
-                                <td colspan="4"> </td>
-                            </tr>
+                            <?php
+                            $no = 1;
+                            ?>
+                            @foreach ($ekstrakurikuler as $e)
+                                <tr style="max-width: 100%">
+                                    <td style="width:5%">{{ $no++ }}</td>
+                                    <td colspan="2"> {{ $e->name }} </td>
+                                    <td colspan="4"> {!! html_entity_decode($e->description) !!} </td>
+                                </tr>
+                            @endforeach
+
                             <tr>
                                 <td colspan="7"><b> D. Saran - saran </td>
                             </tr>

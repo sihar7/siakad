@@ -95,8 +95,8 @@ class SubjectsController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($s) {
                 return '
-                <a href="/subjects/' . $s->id . '/edit" class="btn btn-warning btn-sm">edit</a> 
-                <form action="/subjects/' . $s->id . '" method="post" class="d-inline delete">   
+                <a href="/subjects/' . $s->id . '/edit" class="btn btn-warning btn-sm">edit</a>
+                <form action="/subjects/' . $s->id . '" method="post" class="d-inline delete">
                     <input type="hidden" name="_token" value="' . csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger delete btn-sm">hapus</button>

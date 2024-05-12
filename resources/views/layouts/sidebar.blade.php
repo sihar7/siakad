@@ -15,7 +15,7 @@
                 <img src="
                 @if (auth()->user()->role == 'siswa') {{ auth()->user()->student->getFoto() }}
                 @elseif(auth()->user()->role == 'admin' || auth()->user()->role == 'petugas')
-                   {{ auth()->user()->admin->getFoto() }} 
+                   {{ auth()->user()->admin->getFoto() }}
                 @else
                    {{ auth()->user()->teacher->getFoto() }} @endif
                 "
@@ -24,7 +24,7 @@
             <div class="info">
                 <a href="
                    @if (auth()->user()->role == 'siswa') /student/profile
-                   @elseif(auth()->user()->role == 'admin' || auth()->user()->role == 'petugas') 
+                   @elseif(auth()->user()->role == 'admin' || auth()->user()->role == 'petugas')
                    /admin
                    @else
                    /teacher/profile @endif"
@@ -72,6 +72,12 @@
                         <a href="/subjects" class="nav-link {{ Request::is('subjects*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-book"></i>
                             <p>Mata Pelajaran</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/extracurriculum" class="nav-link {{ Request::is('extracurriculum*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-basketball-ball"></i>
+                            <p>Ekstra Kurikuler</p>
                         </a>
                     </li>
 

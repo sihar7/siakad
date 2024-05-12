@@ -41,7 +41,6 @@ class GradesController extends Controller
     {
         $classes = \App\ClassRoom::all();
         $semesters = \App\Semester::all();
-
         $grades = Grade::where('class_room_id', $request->kelas)
             ->join('students', 'students.id', '=', 'grades.student_id')
             ->where('students.status', 'siswa')
@@ -68,6 +67,7 @@ class GradesController extends Controller
     {
         $classes = \App\ClassRoom::all();
         $semesters = \App\Semester::all();
+        $ekstrakurikuler = \App\ExtraCurriculum::all();
 
         $grades = Grade::where('grades.class_room_id', $request->kelas)
             ->join('class_learns', 'class_learns.id', 'grades.class_learn_id')
@@ -104,7 +104,7 @@ class GradesController extends Controller
             return $grade;
         });
 
-        return view('nilai.raport_print', compact('classes', 'semesters', 'grades', 'grade_info'));
+        return view('nilai.raport_print', compact('classes', 'semesters', 'grades', 'grade_info', 'ekstrakurikuler'));
     }
 
     /**
