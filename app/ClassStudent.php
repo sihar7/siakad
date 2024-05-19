@@ -25,4 +25,9 @@ class ClassStudent extends Model
     {
         return $this->belongsTo(Semester::class);
     }
+
+    public function StudentsExtracurriculums()
+    {
+        return $this->belongsTo(StudentsExtracurriculums::class);
+    }
 }

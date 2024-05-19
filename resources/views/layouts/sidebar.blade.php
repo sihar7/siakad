@@ -139,6 +139,13 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="/studentsextracurriculums" class="nav-link {{ Request::is('studentsextracurriculums*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>Siswa Ekstra Kurikuler</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="/raport" class="nav-link {{ Request::is('raport*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-list-alt"></i>
                             <p>Raport</p>

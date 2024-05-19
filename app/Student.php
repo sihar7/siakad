@@ -38,6 +38,11 @@ class Student extends Model
         return $this->belongsTo(Grade::class);
     }
 
+    public function StudentsExtracurriculums()
+    {
+        return $this->belongsTo(StudentsExtracurriculums::class);
+    }
+
     // public function setClass()
     // {
     //     return $this->hasMany(ClassStudent::class);

@@ -32,4 +32,11 @@ class Semester extends Model
     {
         return $this->hasMany(ClassStudent::class);
     }
+
+    public function StudentsExtracurriculums()
+    {
+        return $this->hasMany(StudentsExtracurriculums::class);
+    }
+
+
 }

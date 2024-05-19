@@ -25,7 +25,7 @@
                     </div>
 
                 <div class="form-group">
-                    <label for="nama">Kegiatan Ekstra Kurikuler</label>
+                    <label for="nama">Keterangan Ekstra Kurikuler</label>
                     <textarea class="form-control" id="description" placeholder="Enter the Description" rows="5" name="description">{!! html_entity_decode($extracurriculum->description) !!}</textarea>
                 </div>
 

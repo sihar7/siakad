@@ -126,6 +126,16 @@ Route::group(['middleware' => ['auth', 'checkRole:guru,admin,petugas']], functio
     Route::delete('grades/{grade}', 'GradesController@destroy');
     Route::get('grades/{grade}', 'GradesController@show');
 
+    //siswa ekstrakuriikuler
+    Route::get('/studentsextracurriculums', 'StudentsExtracurriculumsController@index');
+    Route::get('studentsextracurriculums/{class_id}/{semester_id}/create', 'StudentsExtracurriculumsController@create');
+    Route::post('studentsextracurriculums', 'StudentsExtracurriculumsController@store');
+    Route::get('studentsextracurriculums/{studentsextracurriculums}/edit', 'StudentsExtracurriculumsController@edit');
+    Route::put('studentsextracurriculums/{studentsextracurriculums}', 'StudentsExtracurriculumsController@update');
+    Route::delete('studentsextracurriculums/{studentsextracurriculums}', 'StudentsExtracurriculumsController@destroy');
+    Route::get('studentsextracurriculums/{studentsextracurriculums}', 'StudentsExtracurriculumsController@show');
+
+
     Route::get('/raport', 'GradesController@raport');
     Route::get('/raport_print', 'GradesController@raport_print');
 

@@ -20,7 +20,7 @@
                   <tr>
                      <th>No</th>
                      <th>Nama Ekstra Kurikuler</th>
-                     <th>Kegiatan</th>
+                     <th>Keterangan</th>
                      <th>Aksi</th>
                   </tr>
                </thead>

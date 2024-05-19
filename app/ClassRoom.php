@@ -33,4 +33,9 @@ class ClassRoom extends Model
     {
         return $this->hasMany(HomeroomTeacher::class);
     }
+
+    public function StudentsExtracurriculums()
+    {
+        return $this->belongsTo(StudentsExtracurriculums::class);
+    }
 }
