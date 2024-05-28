@@ -49,6 +49,12 @@
                         <th>Nilai Tugas 2</th>
                         <th>Nilai UTS</th>
                         <th>Nilai UAS</th>
+                        <th>Tinggi Badan</th>
+                        <th>Berat Badan</th>
+                        <th>Aspek Fisik <br> Pendengaran <br> Penglihatan <br> Gigi</th>
+                        <th>Prestasi</th>
+                        <th>Ketidakhadiran <br> Sakit <br> Izin <br> Alpha</th>
+
                      </tr>
                   </thead>
                   <tbody>
@@ -70,6 +76,17 @@
                         <td><input type="number" class="form-control" name="nilai_tugas_2[]"></td>
                         <td><input type="number" class="form-control" name="nilai_uts[]"></td>
                         <td><input type="number" class="form-control" name="nilai_uas[]"></td>
+                        <td><input type="number" class="form-control" name="tinggibadan[]"></td>
+                        <td><input type="number" class="form-control" name="beratbadan[]"></td>
+                        <td><input type="text" class="form-control" name="pendengaran[]"> <br>
+                            <input type="text" class="form-control" name="penglihatan[]"> <br>
+                            <input type="text" class="form-control" name="gigi[]">
+                        </td>
+                        <td><input type="text" class="form-control" name="prestasi[]"></td>
+                        <td><input type="number" class="form-control" name="sakit[]"> <br>
+                            <input type="number" class="form-control" name="izin[]"> <br>
+                            <input type="number" class="form-control" name="alpha[]">
+                        </td>
                      </tr>
                      @endforeach
                   </tbody>
@@ -102,7 +119,7 @@
          type: 'GET',
          dataType: 'json',
             }).done(function (data) {
-               
+
                var select = $('select[name=class_learn_id]');
                select.empty();
                select.append('<option value="0" >Pilih mata pelajaran</option>');
@@ -115,6 +132,6 @@
    });
 
 
-  
+
 </script> --}}
 @endsection

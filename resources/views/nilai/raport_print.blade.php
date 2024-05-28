@@ -107,17 +107,20 @@
                             @endforeach
 
                             <tr>
-                                <td colspan="7"><b> C. Ekstra Kurikuler</td>
+                                <td colspan="10"><b> C. Ekstra Kurikuler</td>
                             </tr>
                             <tr style="max-width: 100%">
                                 <td style="width:5%">
                                     <center>No
                                 </td>
                                 <td colspan="2">
-                                    <center> Kegiatan
+                                    <center> Nama Ekstra Kurikuler
                                 </td>
-                                <td colspan="4">
+                                <td colspan="3">
                                     <center>Kegiatan
+                                </td>
+                                <td colspan="1">
+                                    <center>Nilai
                                 </td>
                             </tr>
                             <?php
@@ -126,8 +129,10 @@
                             @foreach ($ekstrakurikuler as $e)
                                 <tr style="max-width: 100%">
                                     <td style="width:5%">{{ $no++ }}</td>
-                                    <td colspan="2"> {{ $e->name }} </td>
-                                    <td colspan="4"> {!! html_entity_decode($e->description) !!} </td>
+                                    <td colspan="2"> {{ $e->nama_eskul }} </td>
+                                    <td colspan="3"> {!! html_entity_decode($e->descrip) !!} </td>
+                                    <td colspan="3"> {{ $e->nilai }} </td>
+
                                 </tr>
                             @endforeach
 
@@ -158,14 +163,14 @@
                             <tr style="max-width: 100%">
                                 <td style="width:5%">1</td>
                                 <td colspan="2"> Tinggi Badan </td>
-                                <td colspan="3"> </td>
-                                <td colspan="2"> </td>
+                                <td colspan="3">{{ $grade_info[0]->tinggibadan }} </td>
+                                <td colspan="2">{{ $grade_info[0]->tinggibadan }} </td>
                             </tr>
                             <tr style="max-width: 100%">
                                 <td style="width:5%">2</td>
                                 <td colspan="2"> Berat Badan </td>
-                                <td colspan="3"> </td>
-                                <td colspan="2"> </td>
+                                <td colspan="3">{{ $grade_info[0]->beratbadan }}  </td>
+                                <td colspan="2">{{ $grade_info[0]->beratbadan }}  </td>
                             </tr>
                             <tr>
                                 <td colspan="7"><b> F. Kondisi Kesehatan</td>
@@ -184,17 +189,17 @@
                             <tr style="max-width: 100%">
                                 <td style="width:5%">1</td>
                                 <td colspan="2"> <b>Pendengaran </td>
-                                <td colspan="4"> </td>
+                                <td colspan="4">{{ $grade_info[0]->pendengaran }} </td>
                             </tr>
                             <tr style="max-width: 100%">
                                 <td style="width:5%">2</td>
                                 <td colspan="2"><b> Penglihatan </td>
-                                <td colspan="4"> </td>
+                                <td colspan="4">{{ $grade_info[0]->penglihatan }} </td>
                             </tr>
                             <tr style="max-width: 100%">
                                 <td style="width:5%">3</td>
                                 <td colspan="2"><b> Gigi </td>
-                                <td colspan="4"> </td>
+                                <td colspan="4">{{ $grade_info[0]->gigi }} </td>
                             </tr>
                             <tr>
                                 <td colspan="7"><b>G. Prestasi</td>
@@ -212,19 +217,10 @@
                             </tr>
                             <tr style="max-width: 100%">
                                 <td style="width:5%">1</td>
-                                <td colspan="2"> </td>
+                                <td colspan="2">{{ $grade_info[0]->prestasi }} </td>
                                 <td colspan="4"> </td>
                             </tr>
-                            <tr style="max-width: 100%">
-                                <td style="width:5%">2</td>
-                                <td colspan="2"> </td>
-                                <td colspan="4"> </td>
-                            </tr>
-                            <tr style="max-width: 100%">
-                                <td style="width:5%">3</td>
-                                <td colspan="2"> </td>
-                                <td colspan="4"> </td>
-                            </tr>
+
                             <tr>
                                 <td colspan="4"><b>H. Ketidakhadiran</td>
                                 <td colspan="3">Keputusan</td>
@@ -235,7 +231,7 @@
                                 </td>
                                 <td colspan="2"> Sakit </td>
                                 <td>
-                                    <center>
+                                    {{ $grade_info[0]->sakit }}<center>
                                 </td>
                                 <td colspan="3">Berdasarkan pencapaian </td>
                             </tr>
@@ -245,7 +241,7 @@
                                 </td>
                                 <td colspan="2">Ijin </td>
                                 <td>
-                                    <center>
+                                    {{ $grade_info[0]->izin }}<center>
                                 </td>
                                 <td colspan="3">seluruh kompetensi </td>
                             </tr>
@@ -254,7 +250,7 @@
                                     <center>3
                                 </td>
                                 <td colspan="2">Tanpa Keterangan </td>
-                                <td> </td>
+                                <td> {{ $grade_info[0]->alpha }}</td>
                                 <td colspan="3">peserta didik dinyatakan :</td>
                             </tr>
                             <tr>

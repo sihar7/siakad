@@ -1,7 +1,7 @@
 @extends('layouts/master')
 
-@section('title', 'Tambah Nilai')
-@section('header', 'Tambah Data Nilai')
+@section('title', 'Tambah Nilai Ekstra Kurikuler')
+@section('header', 'Tambah Data Nilai Ekstra Kurikuler')
 
 @section('content')
 
@@ -9,19 +9,19 @@
    <div class="col-md-12">
       <div class="card card-primary">
          <div class="card-header">
-            <h3 class="card-title">Input Data Nilai {{ $class->nama }}</h3>
+            <h3 class="card-title">Input Data Nilai Ekstra Kurikuler {{ $class->nama }}</h3>
          </div>
 
          <form action="/studentsextracurriculums/{{$class->id}}/{{$semester->id}}/create" method="get" class="ml-3 mt-3">
             <div class="row">
                <div class="col-md-3">
                   <div class="input-group mb-3">
-                     <select name="subject" id="class_learn_id" class="form-control" required>
+                     <select name="extracurriculums" id="extracurriculums_id" class="form-control" required>
                         <option value="">Pilih Ekstrakurikuler</option>
-                        @foreach ($extracurriculums->unique('id') as $cl)
+                        @foreach ($extracurriculums as $cl)
                         <option value="{{ $cl->id}}"
-                           {{ ($_GET) ? $_GET['id'] == $cl->id ? 'selected' : '' : '' }}>
-                           {{-- {{ $cl->classLearn->subject->nama  }} --}}
+                           {{ ($_GET) ? $_GET['extracurriculums'] == $cl->id ? 'selected' : '' : '' }}>
+                           {{ $cl->name  }}
                         </option>
                         @endforeach
                      </select>
@@ -34,7 +34,7 @@
             </div>
          </form>
 
-         @if(isset($_GET['subject']))
+         @if(isset($_GET['extracurriculums']))
 
          <form method="post" action="/studentsextracurriculums" role="form">
             @csrf
@@ -45,14 +45,11 @@
                      <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Nilai Tugas 1</th>
-                        <th>Nilai Tugas 2</th>
-                        <th>Nilai UTS</th>
-                        <th>Nilai UAS</th>
+                        <th>Nilai</th>
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach ($students as $s)
+                     @foreach ($students_e as $s)
                      <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $s->nama }}</td>
@@ -61,11 +58,8 @@
                         <input type="hidden" name="class_student_id[]" value="{{$s->id}}">
                         <input type="hidden" name="student_id[]" value="{{$s->student_id}}">
 
-                        <input type="hidden" name="class_learn_id" value="{{$_GET['subject']}}">
-                        <td><input type="number" class="form-control" name="nilai_tugas_1[]"></td>
-                        <td><input type="number" class="form-control" name="nilai_tugas_2[]"></td>
-                        <td><input type="number" class="form-control" name="nilai_uts[]"></td>
-                        <td><input type="number" class="form-control" name="nilai_uas[]"></td>
+                        <input type="hidden" name="extracurriculums_id" value="{{$_GET['extracurriculums']}}">
+                        <td><input type="number" class="form-control" name="nilai[]"></td>
                      </tr>
                      @endforeach
                   </tbody>

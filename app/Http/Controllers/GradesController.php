@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Grade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\StudentsExtracurriculums;
 
 class GradesController extends Controller
 {
@@ -67,7 +67,18 @@ class GradesController extends Controller
     {
         $classes = \App\ClassRoom::all();
         $semesters = \App\Semester::all();
-        $ekstrakurikuler = \App\ExtraCurriculum::all();
+
+        // $ekstrakurikuler = \App\ExtraCurriculum::all();
+
+        $ekstrakurikuler = StudentsExtracurriculums::where('students_extracurriculums.class_room_id', $request->kelas)
+            ->join('extracurriculums', 'students_extracurriculums.extracurriculums_id', '=', 'extracurriculums.id')
+            ->join('students', 'students.id', 'students_extracurriculums.student_id')
+            ->join('semesters', 'semesters.id', 'students_extracurriculums.semester_id')
+            ->join('class_rooms', 'class_rooms.id', 'students_extracurriculums.class_room_id')
+            ->selectRaw('extracurriculums.name as nama_eskul, extracurriculums.description as descrip, students_extracurriculums.*,students.*,semesters.*')
+            ->where('semester_id', $request->semester)
+            ->where('student_id', $request->student)
+            ->get();
 
         $grades = Grade::where('grades.class_room_id', $request->kelas)
             ->join('class_learns', 'class_learns.id', 'grades.class_learn_id')
@@ -87,7 +98,7 @@ class GradesController extends Controller
             ->join('students', 'students.id', 'grades.student_id')
             ->join('semesters', 'semesters.id', 'grades.semester_id')
             ->join('class_rooms', 'class_rooms.id', 'grades.class_room_id')
-            ->selectRaw('class_rooms.nama as kl,students.nama as siswa,students.nis,semesters.semester,semesters.tahun_ajaran')
+            ->selectRaw('class_rooms.nama as kl,students.nama as siswa,students.nis,semesters.semester,semesters.tahun_ajaran, grades.*')
             ->where('semester_id', $request->semester)
             ->where('student_id', $request->student)
             ->get();
@@ -135,7 +146,6 @@ class GradesController extends Controller
                         ->whereRaw('grades.class_student_id = class_students.id');
                 })
                 ->get();
-
             return view('nilai.create', compact('class', 'schedule', 'semester', 'students'));
         } else {
             return view('nilai.create', compact('class', 'schedule', 'semester'));
@@ -179,6 +189,16 @@ class GradesController extends Controller
                 'nilai_uts' => $request->nilai_uts[$key],
                 'nilai_uas' => $request->nilai_uas[$key],
                 'student_id' => $request->student_id[$key],
+                'tinggibadan' => $request->tinggibadan[$key],
+                'beratbadan' => $request->beratbadan[$key],
+                'pendengaran' => $request->pendengaran[$key],
+                'penglihatan' => $request->penglihatan[$key],
+                'gigi' => $request->gigi[$key],
+                'prestasi' => $request->prestasi[$key],
+                'sakit' => $request->sakit[$key],
+                'izin' => $request->izin[$key],
+                'alpha' => $request->alpha[$key]
+
             ]);
         }
         return redirect('grades?kelas=' . $request->class_room_id[$key] . '&semester=' . $request->semester_id[$key] . '')->with('status', 'Data nilai berhasil ditambah!');
@@ -207,7 +227,20 @@ class GradesController extends Controller
     public function update(Request $request, Grade $grade)
     {
         $grade = Grade::find($grade->id);
-        $grade->update($request->all());
+        $grade->nilai_tugas_1 = $request->nilai_tugas_1;
+        $grade->nilai_tugas_2 = $request->nilai_tugas_2;
+        $grade->nilai_uts = $request->nilai_uts;
+        $grade->nilai_uas = $request->nilai_uas;
+        $grade->student_id = $request->student_id;
+        $grade->tinggibadan = $request->tinggibadan;
+        $grade->beratbadan = $request->beratbadan;
+        $grade->pendengaran = $request->pendengaran;
+        $grade->penglihatan = $request->penglihatan;
+        $grade->gigi = $request->gigi;
+        $grade->prestasi = $request->prestasi;
+        $grade->sakit = $request->sakit;
+        $grade->izin = $request->izin;
+        $grade->alpha = $request->alpha;
         $grade->save();
         return redirect('grades?kelas=' . $request->class_room_id . '&semester=' . $request->semester_id . '')->with('status', 'Data nilai berhasil diubah!');
     }
