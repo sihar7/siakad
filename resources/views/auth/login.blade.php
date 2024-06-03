@@ -21,9 +21,9 @@
 </head>
 
 <body class="hold-transition login-page">
-  <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>SCHOOL</b>BDS</a>
+      <a href><b>SISTEM INFORMASI AKADEMIK</b></a>
+      <br>SDIT AT-TAJDIED PASIRJAMBU<br>
     </div>
     <!-- /.login-logo -->
     @if (Session::has('status'))

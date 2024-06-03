@@ -75,7 +75,7 @@
       <!-- /.content-wrapper -->
 
       <footer class="main-footer">
-         <strong>Copyright &copy; {{ date('Y') }} </strong> Benny Ds.
+         <strong>Copyright &copy; {{ date('Y') }} </strong> SDIT AT-TAJDIED
       </footer>
 
       <!-- Control Sidebar -->
